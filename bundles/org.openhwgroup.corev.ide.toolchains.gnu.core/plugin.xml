@@ -117,5 +117,12 @@
          </toolChain>
       </template>
    </extension>
+   <extension
+         point="org.eclipse.embedcdt.managedbuild.cross.riscv.core.toolchains">
+      <toolchain
+            name="RISC-V CORE-V GCC"
+            prefix="riscv32-corev-elf-">
+      </toolchain>
+   </extension>
 
 </plugin>
