@@ -63,6 +63,7 @@
       <feature id="org.eclipse.tm.terminal.connector.ssh.feature" installMode="root"/>
       <feature id="org.eclipse.tm.terminal.connector.telnet.feature" installMode="root"/>
       <feature id="org.eclipse.tm.terminal.feature" installMode="root"/>
+      <feature id="org.eclipse.egit" installMode="root"/>
    </features>
 
    <configurations>
