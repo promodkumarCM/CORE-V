@@ -29,7 +29,7 @@
 
    <splash
       location="org.openhwgroup.corev.ide" />
-   <launcher name="OpenHW-IDE">
+   <launcher name="CORE-V IDE">
       <win useIco="false">
          <bmp/>
       </win>
