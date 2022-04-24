@@ -13,7 +13,7 @@
 	Contributors:
 		Alexander Fedorov (ArSysOp) - initial API and implementation
 -->
-<product name="CORE-V SDK" uid="org.openhwgroup.corev.ide.product" id="org.openhwgroup.corev.ide.product" application="org.eclipse.ui.ide.workbench" version="0.2.0" useFeatures="true" includeLaunchers="true">
+<product name="CORE-V_SDK" uid="org.openhwgroup.corev.ide.product" id="org.openhwgroup.corev.ide.product" application="org.eclipse.ui.ide.workbench" version="0.2.0" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
@@ -29,7 +29,7 @@
 
    <splash
       location="org.openhwgroup.corev.ide" />
-   <launcher name="CORE-V SDK">
+   <launcher name="CORE-V_SDK">
       <win useIco="false">
          <bmp/>
       </win>
