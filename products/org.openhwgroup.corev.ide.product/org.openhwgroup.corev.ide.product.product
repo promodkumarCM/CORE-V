@@ -13,7 +13,7 @@
 	Contributors:
 		Alexander Fedorov (ArSysOp) - initial API and implementation
 -->
-<product name="CORE-V_SDK" uid="org.openhwgroup.corev.ide.product" id="org.openhwgroup.corev.ide.product" application="org.eclipse.ui.ide.workbench" version="0.2.0" useFeatures="true" includeLaunchers="true">
+<product name="CORE-V_SDK" uid="org.openhwgroup.corev.ide.product" id="org.openhwgroup.corev.ide.product" application="org.eclipse.ui.ide.workbench" version="0.0.0.1" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
@@ -31,7 +31,15 @@
       location="org.openhwgroup.corev.ide" />
    <launcher name="CORE-V_SDK">
       <win useIco="false">
-         <bmp/>
+       <ico path="/com.ashling.riscfree.product/ashicon.ico"/>
+       <bmp
+            winSmallHigh="icons/ashicon16x16_32bit.bmp"
+            winSmallLow="icons/ashicon16x16_8bit.bmp"
+            winMediumHigh="icons/ashicon32x32_32bit.bmp"
+            winMediumLow="icons/ashicon32x32_8bit.bmp"
+            winLargeHigh="icons/ashicon48x48_32bit.bmp"
+            winLargeLow="icons/ashicon48x48_8bit.bmp"
+            winExtraLargeHigh="icons/ashicon256x256_32bit.bmp"/>
       </win>
    </launcher>
 
