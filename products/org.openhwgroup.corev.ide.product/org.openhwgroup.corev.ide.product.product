@@ -31,7 +31,7 @@
       location="org.openhwgroup.corev.ide" />
    <launcher name="CORE-V_SDK">
       <win useIco="false">
-       <ico path="/com.ashling.riscfree.product/ashicon.ico"/>
+       <ico path="org.openhwgroup.corev.ide/images/OpenHW_Icon.ico"/>
        <bmp
             winSmallHigh="icons/ashicon16x16_32bit.bmp"
             winSmallLow="icons/ashicon16x16_8bit.bmp"
