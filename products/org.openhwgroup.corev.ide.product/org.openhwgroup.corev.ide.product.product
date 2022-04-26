@@ -33,13 +33,13 @@
       <win useIco="false">
        <ico path="org.openhwgroup.corev.ide/images/OpenHW_Icon.ico"/>
        <bmp
-            winSmallHigh="icons/icon16x16.png"
-            winSmallLow="icons/icon16x16.png"
-            winMediumHigh="icons/icon32x32.png"
-            winMediumLow="icons/icon32x32.png"
-            winLargeHigh="icons/icon48x48.png"
-            winLargeLow="icons/icon48x48.png"
-            winExtraLargeHigh="icons/icon256x256.png"/>
+            winSmallHigh="icons/icon16x16.bmp"
+            winSmallLow="icons/icon16x16.bmp"
+            winMediumHigh="icons/icon32x32.bmp"
+            winMediumLow="icons/icon32x32.bmp"
+            winLargeHigh="icons/icon48x48.bmp"
+            winLargeLow="icons/icon48x48.bmp"
+            winExtraLargeHigh="icons/icon256x256.bmp"/>
       </win>
    </launcher>
 
