@@ -26,7 +26,7 @@
       </vmArgsMac>
    </launcherArgs>
 
-   <windowImages i16="/org.openhwgroup.corev.ide.product/images/ohw16.png" i32="/org.openhwgroup.corev.ide.product/images/ohw32.png" i48="/org.openhwgroup.corev.ide.product/images/ohw48.png" i64="/org.openhwgroup.corev.ide.product/images/ohw64.png" i128="/org.openhwgroup.corev.ide.product/images/ohw128.png" i256="/org.openhwgroup.corev.ide.product/images/ohw128.png"/>
+   <windowImages i16="/org.openhwgroup.corev.ide/images/ohw16.png" i32="/org.openhwgroup.corev.ide/images/ohw32.png" i48="/org.openhwgroup.corev.ide/images/ohw48.png" i64="/org.openhwgroup.corev.ide/images/ohw64.png" i128="/org.openhwgroup.corev.ide/images/ohw128.png" i256="/org.openhwgroup.corev.ide/images/ohw128.png"/>
 
    <splash
       location="org.openhwgroup.corev.ide" />
