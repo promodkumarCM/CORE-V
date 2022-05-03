@@ -34,13 +34,13 @@
       <win useIco="false">
          <ico path="icons/OpenHW_Icon.ico"/>
          <bmp
-            winSmallHigh="/org.openhwgroup.corev.ide.product/icons/coreicon16x16_32bit.bmp"
-            winSmallLow="/org.openhwgroup.corev.ide.product/icons/coreicon16x16_32bit.bmp"
-            winMediumHigh="/org.openhwgroup.corev.ide.product/icons/coreicon32x32_32bit.bmp"
-            winMediumLow="/org.openhwgroup.corev.ide.product/icons/coreicon32x32_32bit.bmp"
-            winLargeHigh="/org.openhwgroup.corev.ide.product/icons/coreicon48x48_32bit.bmp"
-            winLargeLow="/org.openhwgroup.corev.ide.product/icons/coreicon48x48_32bit.bmp"
-            winExtraLargeHigh="/org.openhwgroup.corev.ide.product/icons/coreicon256x256_32bit.bmp"/>
+            winSmallHigh="/org.openhwgroup.corev.ide/icons/coreicon16x16_32bit.bmp"
+            winSmallLow="/org.openhwgroup.corev.ide/icons/coreicon16x16_32bit.bmp"
+            winMediumHigh="/org.openhwgroup.corev.ide/icons/coreicon32x32_32bit.bmp"
+            winMediumLow="/org.openhwgroup.corev.ide/icons/coreicon32x32_32bit.bmp"
+            winLargeHigh="/org.openhwgroup.corev.ide/icons/coreicon48x48_32bit.bmp"
+            winLargeLow="/org.openhwgroup.corev.ide/icons/coreicon48x48_32bit.bmp"
+            winExtraLargeHigh="/org.openhwgroup.corev.ide/icons/coreicon256x256_32bit.bmp"/>
       </win>
    </launcher>
 
