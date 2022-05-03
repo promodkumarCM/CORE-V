@@ -38,7 +38,7 @@
             winMediumHigh="icons/coreicon32x32_32bit.bmp"
             winMediumLow="icons/coreicon32x32_32bit.bm"
             winLargeHigh="icons/coreicon48x48_32bit.bmp"
-            winLargeLow="icons/coreicon48x48_32bit.bm"
+            winLargeLow="icons/coreicon48x48_32bit.bmp"
             winExtraLargeHigh="icons/coreicon256x256_32bit.bmp"/>
       </win>
    </launcher>
