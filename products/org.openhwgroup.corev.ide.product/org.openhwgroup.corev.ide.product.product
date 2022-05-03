@@ -31,8 +31,8 @@
    <splash
       location="org.openhwgroup.corev.ide" />
    <launcher name="CORE-V-SDK">
-      <win useIco="true">
-         <ico path="/org.openhwgroup.corev.ide/images/logo.ico"/>
+      <win useIco="false">
+         <ico path="icons/OpenHW_Icon.ico"/>
          <bmp
             winSmallHigh="/org.openhwgroup.corev.ide/icons/coreicon16x16_32bit.bmp"
             winSmallLow="/org.openhwgroup.corev.ide/icons/coreicon16x16_32bit.bmp"
