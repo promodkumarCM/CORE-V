@@ -32,6 +32,12 @@
 		<module>..\..\bundles\org.openhwgroup.corev.ide.debug.ui</module>
 		<module>..\..\bundles\org.eclipse.embedcdt.debug.gdbjtag.qemu.core</module>
 		<module>..\..\bundles\org.eclipse.embedcdt.debug.gdbjtag.qemu.ui</module>
+		<module>..\..\bundles\com.ashling.riscfree.debug.jaxb</module>
+		<module>..\..\bundles\com.ashling.riscfree.debug.opxd.registers</module>
+		<module>..\..\bundles\org.eclipse.embedcdt.debug.gdbjtag.core</module>
+		<module>..\..\bundles\org.eclipse.embedcdt.debug.gdbjtag.openocd.core</module>
+		<module>..\..\bundles\org.eclipse.embedcdt.debug.gdbjtag.openocd.ui</module>
+												
 		<module>..\..\features\org.openhwgroup.corev.ide.cdt.feature</module>
 
 		<module>..\..\bundles\org.openhwgroup.corev.ide.doc.user</module>
