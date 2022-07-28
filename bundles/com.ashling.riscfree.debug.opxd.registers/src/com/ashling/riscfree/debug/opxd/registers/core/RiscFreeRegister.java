@@ -24,7 +24,6 @@ import org.eclipse.cdt.dsf.debug.service.IRegisters2;
 import org.eclipse.cdt.dsf.debug.service.IStack.IFrameDMContext;
 import org.eclipse.cdt.dsf.gdb.internal.GdbPlugin;
 import org.eclipse.cdt.dsf.gdb.service.GDBRegisters;
-import org.eclipse.cdt.dsf.gdb.service.IGDBGrouping.IGroupDMContext;
 import org.eclipse.cdt.dsf.gdb.service.extensions.GDBRegisters_HEAD;
 import org.eclipse.cdt.dsf.mi.service.MIRegisters;
 import org.eclipse.cdt.dsf.service.DsfSession;
@@ -459,30 +458,14 @@ public class RiscFreeRegister extends GDBRegisters_HEAD {
 
 	@Override
 	public void getRegisterGroups(IDMContext ctx, DataRequestMonitor<IRegisterGroupDMContext[]> rm) {
-		if(DMContexts.getAncestorOfType(ctx, IGroupDMContext.class) != null) {
-			IStatus status = new Status(IStatus.ERROR, GdbPlugin.PLUGIN_ID, INVALID_HANDLE,
-					"No register groups are present for group context", null); //$NON-NLS-1$
-			rm.setStatus(status);
-			rm.done();
-			return;
-		}
 		if (registerDescCache != null) {
 			super.getRegisterGroups(ctx,
 					new DataRequestMonitor<IRegisters.IRegisterGroupDMContext[]>(getExecutor(), rm) {
 						@Override
 						protected void handleSuccess() {
 							final IRegisterGroupDMContext[] regGroups = getData();
-							boolean loadRegisterGroupsFromConfig = true;
-							ILaunchConfigurationWorkingCopy wc;
-							try {
-								wc = getLaunchConfig().getWorkingCopy();
-								loadRegisterGroupsFromConfig = wc.getAttribute(
-										ICDTLaunchConfigurationConstants.ATTR_DEBUGGER_LOAD_REGISTER_GROUP_PERSISTANCE,
-										true);
-							} catch (CoreException e) {
-							}
 
-							if (!loadRegisterGroupsFromConfig || regGroups.length==1) {
+							if (regGroups.length==1) {
 
 								getRegisters(ctx, new DataRequestMonitor<IRegisterDMContext[]>(getExecutor(), rm) {
 									@Override
