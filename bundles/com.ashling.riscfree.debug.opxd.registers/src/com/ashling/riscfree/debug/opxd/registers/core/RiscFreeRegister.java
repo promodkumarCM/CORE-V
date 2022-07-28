@@ -1,8 +1,14 @@
 package com.ashling.riscfree.debug.opxd.registers.core;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.StringWriter;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -10,7 +16,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.eclipse.cdt.debug.core.ICDTLaunchConfigurationConstants;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.sax.SAXSource;
+
 import org.eclipse.cdt.dsf.concurrent.DataRequestMonitor;
 import org.eclipse.cdt.dsf.concurrent.ImmediateExecutor;
 import org.eclipse.cdt.dsf.concurrent.ImmediateRequestMonitor;
@@ -22,7 +30,6 @@ import org.eclipse.cdt.dsf.debug.service.IFormattedValues;
 import org.eclipse.cdt.dsf.debug.service.IRegisters;
 import org.eclipse.cdt.dsf.debug.service.IRegisters2;
 import org.eclipse.cdt.dsf.debug.service.IStack.IFrameDMContext;
-import org.eclipse.cdt.dsf.gdb.internal.GdbPlugin;
 import org.eclipse.cdt.dsf.gdb.service.GDBRegisters;
 import org.eclipse.cdt.dsf.gdb.service.extensions.GDBRegisters_HEAD;
 import org.eclipse.cdt.dsf.mi.service.MIRegisters;
@@ -30,12 +37,25 @@ import org.eclipse.cdt.dsf.service.DsfSession;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.variables.VariablesPlugin;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
 
 import com.ashling.riscfree.debug.opxd.registers.Activator;
+import com.ashling.riscfree.debug.opxd.registers.generated.Enum;
+import com.ashling.riscfree.debug.opxd.registers.generated.Flags;
+import com.ashling.riscfree.debug.opxd.registers.generated.Struct;
+import com.ashling.riscfree.debug.opxd.registers.generated.Target;
+import com.ashling.riscfree.debug.opxd.registers.generated.Union;
+import com.ashling.riscfree.debug.opxd.registers.generated.Vector;
 import com.google.common.primitives.UnsignedLong;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 
 /**
  * @author vinod.appu
@@ -47,6 +67,7 @@ public class RiscFreeRegister extends GDBRegisters_HEAD {
 	private String rootRegisterFile;
 	private String registerDirectory;
 	private List<String> registerGroups = new ArrayList<String>();
+	private String dtdLocation =resolvePath("${eclipse_home}/../registers/DTD/");
 
 	/**
 	 * @param session
@@ -54,7 +75,6 @@ public class RiscFreeRegister extends GDBRegisters_HEAD {
 	public RiscFreeRegister(DsfSession session, String rootRegisterFile, String registerDirectory) {
 		super(session);
 		this.rootRegisterFile = rootRegisterFile;
-		// Ensure the path separator is available in the end
 		this.registerDirectory = registerDirectory+File.separator;
 	}
 
@@ -614,5 +634,89 @@ public class RiscFreeRegister extends GDBRegisters_HEAD {
 		}
 		ILaunchConfiguration config = launch.getLaunchConfiguration();
 		return config;
+	}
+	
+	public  String registerFunction() {
+		
+		String tempFileName = null;
+		try {
+			SAXParserFactory spf = SAXParserFactory.newInstance();
+			spf.setXIncludeAware(true);
+			spf.setNamespaceAware(true);
+			XMLReader xr = spf.newSAXParser().getXMLReader();
+			//    be sure validation is "off" or the feature to ignore DTD's will not apply
+			xr.setFeature("http://xml.org/sax/features/validation", true); //$NON-NLS-1$
+			xr.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", true); //$NON-NLS-1$
+			xr.setEntityResolver((p, s) -> {
+				if (s.contains("gdb-target.dtd")) {
+					return new InputSource(new FileInputStream(dtdLocation + "\\gdb-target.dtd"));
+				}
+				if (s.contains("xinclude.dtd")) {
+					return new InputSource(new FileInputStream(dtdLocation + "\\xinclude.dtd"));
+				}
+				return null;
+			});
+			FileInputStream xmlStream = new FileInputStream(rootRegisterFile);
+			SAXSource src = new SAXSource(xr, new InputSource(xmlStream));
+			src.setSystemId(registerDirectory);
+			JAXBContext jaxbContext = JAXBContext.newInstance(Target.class);
+			Unmarshaller unMarshaller = jaxbContext.createUnmarshaller();
+
+			Target target = (Target) unMarshaller.unmarshal(src);
+			//        Target target = JAXB.unmarshal(src, Target.class);
+			Map<String, Object> typeMap = new HashMap<>();
+			target.getFeature().forEach(feature -> {
+				feature.getVectorOrFlagsOrStructOrUnionOrEnum().forEach(type -> {
+					if (type instanceof Vector) {
+						typeMap.put(((Vector) type).getId(), type);
+					} else if (type instanceof Flags) {
+						typeMap.put(((Flags) type).getId(), type);
+					} else if (type instanceof Struct) {
+						typeMap.put(((Struct) type).getId(), type);
+					} else if (type instanceof Union) {
+						typeMap.put(((Union) type).getId(), type);
+					} else if (type instanceof Enum) {
+						typeMap.put(((Enum) type).getId(), type);
+					}
+				});
+			});
+			target.getFeature().forEach(feature -> {
+				feature.getReg().forEach(reg -> {
+					if (typeMap.containsKey(reg.getType())) {
+						if (reg.getBitsize().equals("32")) {
+							reg.setType("uint32");
+						} else if (reg.getBitsize().equals("64")) {
+							reg.setType("uint64");
+						}
+					}
+				});
+			});
+			Marshaller marshaller = jaxbContext.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+			java.io.StringWriter sw = new StringWriter();
+			marshaller.marshal(target, sw);
+
+			String str = Files.readString(Path.of(rootRegisterFile));
+			//			TODO:replace using regex
+			String replaceString = str.substring(str.indexOf("<target"), str.indexOf("</target>") + 9);
+			tempFileName=dtdLocation+"//"+new SimpleDateFormat("yyyyMMddHHmm'.xml'").format(new Date());
+			Files.writeString(Path.of(tempFileName),
+					str.replace(replaceString, sw.toString()));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tempFileName;
+	}
+	
+	
+	private String resolvePath(String value) {
+		try {
+			// Do not report undefined variables
+			value = VariablesPlugin.getDefault().getStringVariableManager().performStringSubstitution(value, false)
+					.trim();
+		} catch (CoreException e) {
+		}
+		return value;
 	}
 }
