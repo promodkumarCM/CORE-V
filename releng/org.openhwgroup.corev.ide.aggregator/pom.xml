@@ -43,7 +43,12 @@
 		<module>..\..\bundles\org.openhwgroup.corev.ide.definition.ui</module>
 		<module>..\..\bundles\org.openhwgroup.corev.ide.p2.ui</module>
 		<module>..\..\bundles\org.openhwgroup.corev.ide.seal</module>
-		<module>..\..\products\org.openhwgroup.corev.ide.product</module>
+		<module>..\..\features\org.eclipse.embedcdt.debug.gdbjtag-feature</module>
+		<module>..\..\features\org.eclipse.embedcdt.debug.gdbjtag.openocd-feature</module>
+		
+		<module>..\..\features\org.openhwgroup.corev.ide.feature</module>
+		<module>..\..\features\com.ashling.riscfree.register.feature</module>
+
 		<module>..\..\releng\org.openhwgroup.corev.ide.repository</module>
 		<module>..\..\features\org.openhwgroup.corev.ide.toolchains.gnu.feature</module>
 		<module>..\..\features\org.openhwgroup.corev.ide.cdt.feature</module>
