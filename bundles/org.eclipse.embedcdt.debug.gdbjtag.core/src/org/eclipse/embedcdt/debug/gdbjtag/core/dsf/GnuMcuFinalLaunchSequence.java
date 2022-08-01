@@ -400,7 +400,7 @@ public class GnuMcuFinalLaunchSequence extends GDBJtagDSFFinalLaunchSequence {
 
 		IRegisters fCommandControl = fTracker.getService(IRegisters.class);
 		if (fCommandControl instanceof RiscFreeRegister) {
-			regFilePath = ((RiscFreeRegister) fCommandControl).registerFunction();
+			regFilePath = ((RiscFreeRegister) fCommandControl).getRegisterFile();
 		} else {
 			rm.done();
 			return;
