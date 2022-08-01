@@ -27,6 +27,7 @@ import org.eclipse.embedcdt.debug.gdbjtag.core.dsf.GnuMcuDebuggerCommandsService
 import org.eclipse.embedcdt.debug.gdbjtag.core.dsf.GnuMcuGdbServerBackend;
 import org.eclipse.embedcdt.debug.gdbjtag.core.dsf.GnuMcuServicesFactory;
 import org.eclipse.embedcdt.debug.gdbjtag.openocd.core.ConfigurationAttributes;
+import org.eclipse.embedcdt.debug.gdbjtag.openocd.core.preferences.DefaultPreferences;
 import org.eclipse.embedcdt.internal.debug.gdbjtag.openocd.core.Activator;
 
 import com.ashling.riscfree.debug.opxd.registers.core.RiscFreeRegister;
@@ -77,7 +78,8 @@ public class ServicesFactory extends GnuMcuServicesFactory {
 	protected IRegisters createRegistersService(DsfSession session) {
 		String regFilename;
 		try {
-			regFilename = lConfig.getAttribute(ConfigurationAttributes.GDB_SERVER_TARGET_REG_FILE, "");
+			regFilename = resolvePath(lConfig.getAttribute(ConfigurationAttributes.GDB_SERVER_TARGET_REG_FILE,
+					DefaultPreferences.DEFAULT_REGISTER_FILE));
 		} catch (CoreException e) {
 			regFilename = "";
 		}
