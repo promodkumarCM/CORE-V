@@ -4,11 +4,9 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
@@ -45,7 +43,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.variables.VariablesPlugin;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
@@ -72,7 +69,7 @@ public class RiscFreeRegister extends GDBRegisters_HEAD {
 	private String rootRegisterFile;
 	private String registerDirectory;
 	private List<String> registerGroups = new ArrayList<String>();
-	private String dtdLocation = resolvePath("${eclipse_home}/../registers/DTD/");
+	private String dtdLocation = resolvePath("${eclipse_home}/../registers/csr/DTD/");
 
 	/**
 	 * @param session
