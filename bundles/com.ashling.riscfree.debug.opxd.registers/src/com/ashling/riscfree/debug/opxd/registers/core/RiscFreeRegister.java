@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
@@ -640,15 +641,15 @@ public class RiscFreeRegister extends GDBRegisters_HEAD {
 		return config;
 	}
 
-	public  String registerFunction() {
-		
+	public String registerFunction() {
+
 		String tempFileName = null;
 		try {
 			SAXParserFactory spf = SAXParserFactory.newInstance();
 			spf.setXIncludeAware(true);
 			spf.setNamespaceAware(true);
 			XMLReader xr = spf.newSAXParser().getXMLReader();
-			//    be sure validation is "off" or the feature to ignore DTD's will not apply
+			// be sure validation is "off" or the feature to ignore DTD's will not apply
 			xr.setFeature("http://xml.org/sax/features/validation", true); //$NON-NLS-1$
 			xr.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", true); //$NON-NLS-1$
 			xr.setEntityResolver((p, s) -> {
@@ -667,7 +668,7 @@ public class RiscFreeRegister extends GDBRegisters_HEAD {
 			Unmarshaller unMarshaller = jaxbContext.createUnmarshaller();
 
 			Target target = (Target) unMarshaller.unmarshal(src);
-			//        Target target = JAXB.unmarshal(src, Target.class);
+			// Target target = JAXB.unmarshal(src, Target.class);
 			Map<String, Object> typeMap = new HashMap<>();
 			target.getFeature().forEach(feature -> {
 				feature.getVectorOrFlagsOrStructOrUnionOrEnum().forEach(type -> {
@@ -700,14 +701,12 @@ public class RiscFreeRegister extends GDBRegisters_HEAD {
 			java.io.StringWriter sw = new StringWriter();
 			marshaller.marshal(target, sw);
 
-//			String str = Files.readString(Path.of(rootRegisterFile));
-			String str=fileToString(rootRegisterFile);
-			//			TODO:replace using regex
+			String str = fileToString(rootRegisterFile);
+			//To remove commented code from xml
+			str=str.replaceAll( "(?s)<!--.*?-->", "" );
 			String replaceString = str.substring(str.indexOf("<target"), str.indexOf("</target>") + 9);
-			tempFileName=dtdLocation+"//"+new SimpleDateFormat("yyyyMMddHHmm'.xml'").format(new Date());
-//			Files.writeString(Path.of(tempFileName),
-//					str.replace(replaceString, sw.toString()));
-			writeUsingBufferWriter(tempFileName);
+			tempFileName = dtdLocation +File.separator+ new SimpleDateFormat("yyyyMMddHHmm'.xml'").format(new Date());
+			StringToFile(tempFileName, str.replace(replaceString, sw.toString()));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -715,50 +714,31 @@ public class RiscFreeRegister extends GDBRegisters_HEAD {
 		return tempFileName;
 	}
 
-	private void writeUsingBufferWriter(String tempFileName) throws IOException {
-        System.out.println("1. Start writing contents to file - BufferedWriter");       
-        try (FileOutputStream fileStream = new FileOutputStream(new File("sampleFile.txt"));
-                OutputStreamWriter writer = new OutputStreamWriter(fileStream);
-                BufferedWriter bufferWriter = new BufferedWriter(writer)) {
-            bufferWriter.write(tempFileName);
-        }
-        System.out.println("2. Successfully written contents to file - BufferedWriter");
-    }
+	private void StringToFile(String tempFileName, String tempString) throws IOException {
+		File tempFile = new File(tempFileName);
+		if (tempFile.createNewFile()) {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFileName));
+			writer.write(tempString);
 
-		 private String fileToString(String filePath)
-		    {
-		 
-		        // Declaring object of StringBuilder class
-		        StringBuilder builder = new StringBuilder();
-		 
-		        // try block to check for exceptions where
-		        // object of BufferedReader class us created
-		        // to read filepath
-		        try (BufferedReader buffer = new BufferedReader(
-		                 new FileReader(filePath))) {
-		 
-		            String str;
-		 
-		            // Condition check via buffer.readLine() method
-		            // holding true upto that the while loop runs
-		            while ((str = buffer.readLine()) != null) {
-		 
-		                builder.append(str).append("\n");
-		            }
-		        }
-		 
-		        // Catch block to handle the exceptions
-		        catch (IOException e) {
-		 
-		            // Print the line number here exception occurred
-		            // using printStackTrace() method
-		            e.printStackTrace();
-		        }
-		 
-		        // Returning a string
-		        return builder.toString();
-		    }
+			writer.close();
+		}
+	}
 
+	private String fileToString(String filePath) {
+
+		StringBuilder builder = new StringBuilder();
+		try (BufferedReader buffer = new BufferedReader(new FileReader(filePath))) {
+			String str;
+			while ((str = buffer.readLine()) != null) {
+
+				builder.append(str).append("\n");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return builder.toString();
+	}
 
 	private String resolvePath(String value) {
 		try {

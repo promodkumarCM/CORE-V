@@ -70,8 +70,7 @@ public class GnuMcuFinalLaunchSequence extends GDBJtagDSFFinalLaunchSequence {
 	private String[] jtagPreInitSteps = {};
 
 	private String[] jtagResetStep = { "stepGnuMcuReset" };
-	//	private String[] jtagStartStep = { "stepGnuMcuStart", "stepRegisterService" };
-	private String[] jtagStartStep = { "stepGnuMcuStart" };
+	private String[] jtagStartStep = { "stepGnuMcuStart", "stepRegisterService" };
 
 	private String[] jtagToRemove = { "stepLoadSymbols", "stepResetBoard", "stepDelayStartup", "stepHaltBoard",
 			"stepUserInitCommands", "stepLoadImage", "stepSetProgramCounter", "stepStopScript", "stepResumeScript",
@@ -402,6 +401,9 @@ public class GnuMcuFinalLaunchSequence extends GDBJtagDSFFinalLaunchSequence {
 		IRegisters fCommandControl = fTracker.getService(IRegisters.class);
 		if (fCommandControl instanceof RiscFreeRegister) {
 			regFilePath = ((RiscFreeRegister) fCommandControl).registerFunction();
+		} else {
+			rm.done();
+			return;
 		}
 		final List<String> commandsList = new ArrayList<>();
 

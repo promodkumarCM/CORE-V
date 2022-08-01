@@ -52,7 +52,6 @@
 		<module>..\..\releng\org.openhwgroup.corev.ide.repository</module>
 		<module>..\..\features\org.openhwgroup.corev.ide.toolchains.gnu.feature</module>
 		<module>..\..\features\org.openhwgroup.corev.ide.cdt.feature</module>
-		<module>..\..\features\org.openhwgroup.corev.ide.feature</module>
 
 	</modules>
 
