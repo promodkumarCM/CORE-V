@@ -651,10 +651,10 @@ public class RiscFreeRegister extends GDBRegisters_HEAD {
 			xr.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", true); //$NON-NLS-1$
 			xr.setEntityResolver((p, s) -> {
 				if (s.contains("gdb-target.dtd")) {
-					return new InputSource(new FileInputStream(dtdLocation + "\\gdb-target.dtd"));
+					return new InputSource(new FileInputStream(dtdLocation + "gdb-target.dtd"));
 				}
 				if (s.contains("xinclude.dtd")) {
-					return new InputSource(new FileInputStream(dtdLocation + "\\xinclude.dtd"));
+					return new InputSource(new FileInputStream(dtdLocation + "xinclude.dtd"));
 				}
 				return null;
 			});
@@ -706,7 +706,7 @@ public class RiscFreeRegister extends GDBRegisters_HEAD {
 			StringToFile(tempFileName, str.replace(replaceString, sw.toString()));
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Activator.log(e);
 		}
 		return tempFileName;
 	}
