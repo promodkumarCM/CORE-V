@@ -31,7 +31,6 @@
       location="org.openhwgroup.corev.ide" />
    <launcher name="CORE-V-SDK">
       <win useIco="false">
-         <ico path="icons/OpenHW_Icon.ico"/>
          <bmp
             winSmallHigh="icons/coreicon16x16_32bit.bmp"
             winSmallLow="icons/coreicon16x16_8bit.bmp"
@@ -74,7 +73,7 @@
       <feature id="org.eclipse.egit" installMode="root"/>
       <feature id="org.eclipse.embedcdt.debug.gdbjtag" installMode="root"/>
       <feature id="com.ashling.riscfree.register.feature" installMode="root"/>
-      <feature id="com.ashling.riscfree.qemu.feature" installMode="root"/>
+      <feature id="org.eclipse.embedcdt.debug.gdbjtag.qemu" installMode="root"/>
    </features>
 
    <configurations>

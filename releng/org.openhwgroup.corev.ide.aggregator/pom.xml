@@ -48,8 +48,8 @@
 		<module>..\..\features\org.openhwgroup.corev.ide.feature</module>
 		<module>..\..\features\org.openhwgroup.corev.ide.toolchains.gnu.feature</module>
 		<module>..\..\features\org.openhwgroup.corev.ide.cdt.feature</module>
-		<module>..\..\features\com.ashling.riscfree.qemu.feature</module>
 		<module>..\..\features\com.ashling.riscfree.register.feature</module>
+		<module>..\..\features\org.eclipse.embedcdt.debug.gdbjtag.qemu-feature</module>
 		<module>..\..\bundles\com.ashling.riscfree.debug.jaxb</module>
 		<module>..\..\bundles\com.ashling.riscfree.debug.opxd.registers</module>
 		
