@@ -1,5 +1,9 @@
 package org.openhwgroup.corev.ide.wizard;
 
+/*
+ *Contributors:Promodkumar (Ashling) - initial implementation
+ */
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,10 +62,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.wizards.datatransfer.FileSystemStructureProvider;
 
-/**
- * @author Vijay
- *
- */
+
 public class SampleProjectSelectionWizard extends WizardPage {
 
 	private Tree tree;

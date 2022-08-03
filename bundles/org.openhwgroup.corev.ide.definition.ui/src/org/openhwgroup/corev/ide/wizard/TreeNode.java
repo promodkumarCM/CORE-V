@@ -1,12 +1,11 @@
 package org.openhwgroup.corev.ide.wizard;
 
+/*
+ *Contributors:Promodkumar (Ashling) - initial implementation
+ */
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Vijay
- *
- */
 public abstract class TreeNode implements ITreeNode
 {
 	protected ITreeNode fParent;

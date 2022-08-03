@@ -2,9 +2,8 @@ package org.openhwgroup.corev.ide.wizard;
 
 import java.util.List;
 
-/**
- * @author Vijay
- *
+/*
+ *Contributors:Promodkumar (Ashling) - initial implementation
  */
 public class FileNode extends TreeNode
 {

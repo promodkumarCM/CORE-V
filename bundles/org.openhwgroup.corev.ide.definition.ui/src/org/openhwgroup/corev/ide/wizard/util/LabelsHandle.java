@@ -8,11 +8,7 @@ import org.openhwgroup.corev.ide.definition.Activator;
 
 /**
  * LabelsHandle class manage the messages, labels and title for the Dialog.
- * 
- * @author : Vijay
- * @date : 20th November 2020
- * 
- * 
+ * Contributors:Promodkumar (Ashling) - initial implementation 
  */
 public class LabelsHandle {
 	private static final String LABELS = Activator.PLUGIN_ID + ".wizard.util.Labels"; //$NON-NLS-1$
