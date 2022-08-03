@@ -638,6 +638,10 @@ public class RiscFreeRegister extends GDBRegisters_HEAD {
 		return config;
 	}
 
+	public String getDefaultRegisterFilePath() {
+		return rootRegisterFile;
+	}
+
 	public String getFormattedRegisterFilePath() {
 
 		String tempFileName = null;
@@ -681,6 +685,11 @@ public class RiscFreeRegister extends GDBRegisters_HEAD {
 					}
 				});
 			});
+
+			if (typeMap.isEmpty()) {
+				return rootRegisterFile;
+			}
+
 			target.getFeature().forEach(feature -> {
 				feature.getReg().forEach(reg -> {
 					if (typeMap.containsKey(reg.getType())) {
@@ -696,15 +705,15 @@ public class RiscFreeRegister extends GDBRegisters_HEAD {
 			marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 			java.io.StringWriter sw = new StringWriter();
 			marshaller.marshal(target, sw);
-			
+
 			String str = fileToString(rootRegisterFile);
-			
-			//To remove commented code from xml
-			str=str.replaceAll( "(?s)<!--.*?-->", "" );
-			
+
+			// To remove commented code from xml
+			str = str.replaceAll("(?s)<!--.*?-->", "");
+
 			String replaceString = str.substring(str.indexOf("<target"), str.indexOf("</target>") + 9);
-			tempFileName = dtdLocation +File.separator+ new SimpleDateFormat("yyyyMMddHHmm'.xml'").format(new Date());
-			StringToFile(tempFileName, str.replace(replaceString, sw.toString()));
+			tempFileName = dtdLocation + File.separator + new SimpleDateFormat("yyyyMMddHHmm'.xml'").format(new Date());
+			stringToFile(tempFileName, str.replace(replaceString, sw.toString()));
 
 		} catch (Exception e) {
 			Activator.log(e);
@@ -712,7 +721,7 @@ public class RiscFreeRegister extends GDBRegisters_HEAD {
 		return tempFileName;
 	}
 
-	private void StringToFile(String tempFileName, String tempString) throws IOException {
+	private void stringToFile(String tempFileName, String tempString) throws IOException {
 		File tempFile = new File(tempFileName);
 		if (tempFile.createNewFile()) {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFileName));

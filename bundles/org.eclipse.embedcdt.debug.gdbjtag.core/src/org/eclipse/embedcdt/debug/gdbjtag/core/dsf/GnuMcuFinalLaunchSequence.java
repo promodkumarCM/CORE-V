@@ -417,8 +417,11 @@ public class GnuMcuFinalLaunchSequence extends GDBJtagDSFFinalLaunchSequence {
 		queueCommands(commandsList, new RequestMonitor(getExecutor(), rm) {
 			@Override
 			protected void handleCompleted() {
-				if (tempFile.exists()) {
-					tempFile.delete();
+				if (!((RiscFreeRegister) fCommandControl).getDefaultRegisterFilePath()
+						.equalsIgnoreCase(tempFile.getAbsolutePath())) {
+					if (tempFile.exists()) {
+						tempFile.delete();
+					}
 				}
 				super.handleCompleted();
 			}
