@@ -4,6 +4,7 @@
 
 [![Eclipse License](https://img.shields.io/badge/license-EPL--2.0-brightgreen.svg)](https://github.com/openhwgroup/core-v-ide-cdt/blob/master/LICENSE)
 [![Build Status](https://github.com/openhwgroup/core-v-ide-cdt/workflows/CI/badge.svg)](https://github.com/openhwgroup/core-v-ide-cdt/actions)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FpromodkumarCM%2FCORE-V.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FpromodkumarCM%2FCORE-V?ref=badge_shield)
 
 ### License
 
@@ -14,6 +15,9 @@ terms of the Eclipse Public License 2.0 which is available at
 [https://www.eclipse.org/legal/epl-2.0/](https://www.eclipse.org/legal/epl-2.0/).
 
 SPDX-License-Identifier: EPL-2.0
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FpromodkumarCM%2FCORE-V.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FpromodkumarCM%2FCORE-V?ref=badge_large)
 
 ### Building
 
